@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বইয়ের ডাটাবেস | SM Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: #f3f4f6; }
+    </style>
+</head>
+<body>
+
+<div class="max-w-4xl mx-auto p-4">
+    <!-- Header -->
+    <header class="text-center py-8">
+        <h1 class="text-3xl font-bold text-indigo-700">স্মার্ট লাইব্রেরি ইনভেন্টরি</h1>
+        <p class="text-gray-600 mt-2">আমাদের সংগ্রহের সকল বইয়ের তালিকা</p>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="sticky top-0 bg-f3f4f6 pb-4 pt-2">
+        <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="বইয়ের নাম দিয়ে সার্চ করুন..." 
+        class="w-full p-4 rounded-lg border-2 border-indigo-300 shadow-sm focus:border-indigo-500 focus:outline-none">
+    </div>
+
+    <!-- Stats -->
+    <div class="mb-4 text-sm text-gray-500">
+        মোট বইয়ের এন্ট্রি: <span id="totalBooks" class="font-bold text-indigo-600">০</span>
+    </div>
+
+    <!-- Book List Container -->
+    <div id="bookContainer" class="grid gap-4 grid-cols-1 md:grid-cols-2">
+        <!-- বইগুলো এখানে লোড হবে -->
+    </div>
+</div>
+
+<script>
+    // তোমার দেওয়া তালিকা থেকে সংগৃহীত ডাটা
+    const books = [
+        { id: "01", title: "ইসলামের সহজ পরিচয়", qty: "৩" },
+        { id: "02", title: "চরিত্র গঠনের মৌলিক উপাদান", qty: "১" },
+        { id: "03", title: "নামাজ রোজার হাকিকত", qty: "২" },
+        { id: "04", title: "যাকাতের হাকিকত", qty: "১" },
+        { id: "05", title: "বায়াতের হাকিকত", qty: "২" },
+        { id: "06", title: "পরিচিতি", qty: "৫" },
+        { id: "07", title: "মুসলমানের দৈনন্দিন জীবন", qty: "১" },
+        { id: "08", title: "কুরআনের মর্মকথা", qty: "১" },
+        { id: "09", title: "সত্যের সাক্ষ্য", qty: "২" },
+        { id: "10", title: "ইসলামী দাওয়াত ও কর্মনীতি", qty: "১" },
+        { id: "14", title: "পলাশী থেকে বাংলাদেশ", qty: "১" },
+        { id: "85", title: "ইনজয় ইউর লাইফ", qty: "১" },
+        { id: "87", title: "আর রাহিকুল মাখতুম", qty: "১" },
+        { id: "100", title: "আমার ফাঁসি চাই", qty: "১" },
+        { id: "111", title: "লা তাহজান (Don't be Sad)", qty: "১" },
+        { id: "113", title: "আমি মেজর ডালিম বলছি", qty: "১" }
+        // বাকি ১২৩টি বই এখানে একই ফরমেটে যোগ করবে
+    ];
+
+    const container = document.getElementById('bookContainer');
+    const totalDisplay = document.getElementById('totalBooks');
+
+    function displayBooks(bookList) {
+        container.innerHTML = '';
+        totalDisplay.innerText = bookList.length;
+        
+        bookList.forEach(book => {
+            const card = `
+                <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-indigo-500 hover:shadow-lg transition">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-xs text-indigo-400 font-mono">#${book.id}</span>
+                            <h3 class="text-lg font-semibold text-gray-800 leading-tight">${book.title}</h3>
+                        </div>
+                        <div class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm">
+                            ${book.qty} টি
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += card;
+        });
+    }
+
+    function searchBooks() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const filteredBooks = books.filter(book => 
+            book.title.toLowerCase().includes(input)
+        );
+        displayBooks(filteredBooks);
+    }
+
+    // শুরুতে সব বই দেখাবে
+    displayBooks(books);
+</script>
+
+</body>
+                           </html>
+  
